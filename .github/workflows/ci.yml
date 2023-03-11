@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-with-docker-engine:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: 'AWS login'
+        id: install-aws-cli
+        uses: unfor19/install-aws-cli-action@master
+        run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g5v1k6e9
+      - uses: actions/setup-node@v3
+        with:
+          cache: 'npm'
+          node-version-file: '.nvmrc'
+      - name: 'Install Dependencies'
+        run: npm install
+      - name: Derive appropriate SHAs for base and head for `nx affected` commands
+        uses: nrwl/nx-set-shas@v3
+      - name: 'Build images'
+        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=container --parallel=2
+      - name: 'COPY'
+        run: docker tag events/server:latest public.ecr.aws/g5v1k6e9/events-api:latest
+      - name: 'Deploy'
+        run: docker push public.ecr.aws/g5v1k6e9/events-api:latest
+     

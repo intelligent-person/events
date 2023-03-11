@@ -10,6 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "root": "apps/web-app",
+        "generatePackageJson": true,
         "outputPath": "dist/apps/web-app"
       },
       "configurations": {
@@ -24,7 +25,8 @@
       "defaultConfiguration": "development",
       "options": {
         "buildTarget": "web-app:build",
-        "dev": true
+        "dev": true,
+        "proxyConfig": "apps/web-app/proxy.conf.json"
       },
       "configurations": {
         "development": {
@@ -62,6 +64,33 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["apps/web-app/**/*.{ts,tsx,js,jsx}"]
+      }
+    },
+    "storybook": {
+      "executor": "@nrwl/storybook:storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "apps/web-app/.storybook",
+        "uiFramework": "@storybook/react"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@nrwl/storybook:build",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/web-app",
+        "configDir": "apps/web-app/.storybook",
+        "uiFramework": "@storybook/react"
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
       }
     }
   },
