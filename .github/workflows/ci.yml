@@ -32,7 +32,6 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
-          node-version-file: '.nvmrc'
       - name: 'Install Dependencies'
         run: npm install
       - name: Derive appropriate SHAs for base and head for `nx affected` commands
