@@ -19,7 +19,7 @@ jobs:
       - name: 'AWS login'
         id: install-aws-cli
         uses: unfor19/install-aws-cli-action@master
-        run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g5v1k6e9
+      - run: aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/g5v1k6e9
       - uses: actions/setup-node@v3
         with:
           cache: 'npm'
