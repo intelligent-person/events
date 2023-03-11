@@ -41,7 +41,7 @@ jobs:
       - name: 'Build server'
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx build server 
       - name: 'Build images'
-        run: docker build . --file apps/server/Dockerfile --tag events-api:latest && docker images
+        run: docker build . --file apps/server/Dockerfile --tag events-api:latest
       - name: 'COPY'
         run: docker tag events-api:latest public.ecr.aws/g5v1k6e9/events-api:latest
       - name: 'Deploy'
