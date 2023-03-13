@@ -12,7 +12,13 @@
     "@nrwl/expo": "*",
     "@expo/metro-config": "*",
     "react": "*",
-    "@expo/webpack-config": "*"
+    "@expo/webpack-config": "*",
+    "@storybook/react-native": "*",
+    "@react-native-async-storage/async-storage": "*",
+    "@storybook/addon-ondevice-actions": "*",
+    "@storybook/addon-ondevice-backgrounds": "*",
+    "@storybook/addon-ondevice-controls": "*",
+    "@storybook/addon-ondevice-notes": "*"
   },
   "scripts": {
     "postinstall": "rm -r node_modules && cd ../../ && yarn install && npx nx sync-deps mobile-expo && npx nx ensure-symlink mobile-expo"
