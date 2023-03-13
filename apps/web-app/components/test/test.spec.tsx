@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 
-import Test from './test';
+import Test from './TestComponent';
 
 describe('Test', () => {
   it('should render successfully', () => {
